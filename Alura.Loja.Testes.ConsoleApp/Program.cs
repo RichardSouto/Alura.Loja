@@ -12,10 +12,28 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             //GravarUsandoAdoNet();
             //GravarUsandoEntity();
-            RecuperarProdutos();
-            ExcluirProdutos();
+            //RecuperarProdutos();
+            //ExcluirProdutos();
+            //RecuperarProdutos();
+            AtualizarProduto();
+
+        }
+
+        private static void AtualizarProduto()
+        {
+            //Incluir um produto para ter um de exemplo na utilização
+            GravarUsandoEntity();
             RecuperarProdutos();
 
+            //Atualizar Produto
+            using (var contexto = new LojaContext())
+            {
+                Produto produto = contexto.Produtos.First();
+                produto.Nome = $"{produto.Nome} Editado!";
+                contexto.Produtos.Update(produto);
+                contexto.SaveChanges();
+            }
+            RecuperarProdutos();
         }
 
         private static void ExcluirProdutos()
