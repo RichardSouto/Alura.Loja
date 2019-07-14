@@ -80,7 +80,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             p.Categoria = "Livros";
             p.Preco = 19.89;
 
-            using (var repo = new ProdutoDAO())
+            using (var repo = new ProdutoDAOEntity())
             {
                 repo.Adicionar(p);
             }
