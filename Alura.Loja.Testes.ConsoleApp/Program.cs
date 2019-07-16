@@ -15,7 +15,27 @@ namespace Alura.Loja.Testes.ConsoleApp
             //RecuperarProdutos();
             //ExcluirProdutos();
             //RecuperarProdutos();
-            AtualizarProduto();
+            //AtualizarProduto();
+
+            //Comprar paes franceses
+            var paoFrances = new Produto();
+            paoFrances.Nome = "Pão Francês";
+            paoFrances.PrecoUnitario = 0.4;
+            paoFrances.Unidade = "Unidade";
+            paoFrances.Categoria = "Padaria";
+
+            var compra = new Compra();
+            compra.Quantidade = 6;
+            compra.Produto = paoFrances;
+            compra.Preco = paoFrances.PrecoUnitario * compra.Quantidade;
+
+            using (var contexto = new LojaContext())
+            {
+                contexto.Compras.Add(compra);
+
+                contexto.SaveChanges();
+            }
+            
 
         }
 
