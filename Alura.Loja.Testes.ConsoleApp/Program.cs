@@ -65,7 +65,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             Produto p = new Produto();
             p.Nome = "Harry Potter e a Ordem da Fênix";
             p.Categoria = "Livros";
-            p.Preco = 19.89;
+            p.PrecoUnitario = 19.89;
 
             using (var contexto = new ProdutoDAOEntity())
             {
@@ -78,7 +78,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             Produto p = new Produto();
             p.Nome = "Harry Potter e a Ordem da Fênix";
             p.Categoria = "Livros";
-            p.Preco = 19.89;
+            p.PrecoUnitario = 19.89;
 
             using (var repo = new ProdutoDAOEntity())
             {
