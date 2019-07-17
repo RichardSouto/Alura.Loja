@@ -10,13 +10,22 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //GravarUsandoAdoNet();
             //GravarUsandoEntity();
             //RecuperarProdutos();
             //ExcluirProdutos();
-            //RecuperarProdutos();
             //AtualizarProduto();
+            //TesteCompraXProduto();
 
+            var promocao = new Promocao();
+            promocao.Descricao = "Páscoa Feliz";
+            promocao.DataInicio = DateTime.Now;
+            promocao.DataTermino = DateTime.Now.AddMonths(3);
+            //promocao.Produtos.Add(new Produto);
+
+        }
+
+        private static void TesteCompraXProduto()
+        {
             //Comprar paes franceses
             var paoFrances = new Produto();
             paoFrances.Nome = "Pão Francês";
@@ -35,8 +44,6 @@ namespace Alura.Loja.Testes.ConsoleApp
 
                 contexto.SaveChanges();
             }
-            
-
         }
 
         private static void AtualizarProduto()
