@@ -5,6 +5,7 @@ namespace Alura.Loja.Testes.ConsoleApp
 {
     internal class Promocao
     {
+        public int Id { get; internal set; }
         public string Descricao { get; internal set; }
         public object DataInicio { get; internal set; }
         public DateTime DataTermino { get; internal set; }
