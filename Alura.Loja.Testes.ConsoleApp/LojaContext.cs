@@ -8,9 +8,22 @@ namespace Alura.Loja.Testes.ConsoleApp
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<Promocao> Promocoes { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder
+                .Entity<Endereco>()
+                .ToTable("Enderecos");
+
+            //modelBuilder
+            //    .Entity<Endereco>()
+            //    .Property<int>("ClienteID");
+
+            modelBuilder
+                .Entity<Endereco>()
+                .HasKey("ClienteID");
+
             modelBuilder
                 .Entity<PromocaoProduto>()
                 .HasKey(pp => new { pp.PromocaoID, pp.ProdutoID });
