@@ -10,12 +10,27 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //GravarUsandoEntity();
-            //RecuperarProdutos();
-            //ExcluirProdutos();
-            //AtualizarProduto();
-            //TesteCompraXProduto();
-            PopulandoPromocao();
+            var cliente = new Cliente()
+            {
+                Nome = "Richard",
+                Endereco = new Endereco()
+                {
+                    Numero = 12,
+                    Logradouro = "Avenida River",
+                    Complemento = "Fundos",
+                    Bairro = "Ponte Alta",
+                    Cidade = "Guarulhos",
+                    Estado = "São Paulo"
+                }
+
+            };
+
+            using (var context = new LojaContext())
+            {
+                context.Clientes.Add(cliente);
+                context.SaveChanges();
+            }
+
 
         }
 
