@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,83 @@ namespace Alura.Loja.Testes.ConsoleApp
     class Program
     {
         static void Main(string[] args)
+        {
+
+        }
+
+        private static void PegandoEnderecoDeUmCliente()
+        {
+            using (var context = new LojaContext())
+            {
+                var cliente = context
+                    .Clientes
+                    .Include(c => c.Endereco)
+                    .FirstOrDefault();
+
+                Console.WriteLine($"Endereco de entrega do cliente {cliente.Nome}: {cliente.Endereco.Logradouro}");
+            }
+        }
+
+        private static void FiltrandoIdDasComprasDeUmProduto()
+        {
+            using (var context = new LojaContext())
+            {
+
+                var produto = context
+                    .Produtos
+                    .Include(p => p.Compras)
+                    .Where(p => p.Id == 1002)
+                    .FirstOrDefault();
+
+                foreach (var compra in produto.Compras)
+                {
+                    Console.WriteLine($"Id compras do produto de id:{produto.Id} - {compra.Id}");
+                }
+            }
+        }
+
+        private static void ExibeProdutosDaPromocao()
+        {
+            //Selecionando os produtos de uma determinada promoção
+            using (var context = new LojaContext())
+            {
+                var promocao = context
+                    .Promocoes
+                    .Include(p => p.Produtos)
+                    .ThenInclude(pp => pp.Produto)
+                    .Where(p => p.Id == 2)
+                    .FirstOrDefault();
+
+                Console.WriteLine($"\nProdutos da promoção");
+                foreach (var item in promocao.Produtos)
+                {
+                    Console.WriteLine(item.Produto);
+                }
+            }
+        }
+
+        private static void TestePersistencaPromocao()
+        {
+            var promocao = new Promocao();
+            promocao.Descricao = "Queima estoque Janeiro 2017";
+            promocao.DataInicio = new DateTime(2017, 1, 1);
+            promocao.DataTermino = new DateTime(2017, 1, 31);
+
+            using (var context = new LojaContext())
+            {
+                var produtos = context.Produtos.Where(p => p.Categoria == "Bebidas").ToList();
+
+                foreach (var produto in produtos)
+                {
+                    promocao.IncluirProduto(produto);
+                }
+
+                context.Promocoes.Add(promocao);
+                context.SaveChanges();
+            }
+        }
+
+        private static void CadastroCliente()
         {
             var cliente = new Cliente()
             {
@@ -30,8 +108,6 @@ namespace Alura.Loja.Testes.ConsoleApp
                 context.Clientes.Add(cliente);
                 context.SaveChanges();
             }
-
-
         }
 
         private static void PopulandoPromocao()
